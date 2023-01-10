@@ -23,7 +23,18 @@ func NewHandler(repository internal.IRepository) IHandler {
 	}
 }
 
-// GetNearestDriver is a handler to get nearest driver
+// @Summary Get nearest driver
+// @Description Get nearest driver
+// @Tags drivers
+// @Accept json
+// @Produce json
+// @Param lat query string true "Latitude"
+// @Param long query string true "Longitude"
+// @Success 200 {object} pkg.Response
+// @Failure 400 {object} pkg.Response
+// @Failure 404 {object} pkg.Response
+// @Failure 500 {object} pkg.Response
+// @Router /drivers/nearest [get]
 func (h *Handler) GetNearestDriver(c *fiber.Ctx) error {
 
 	lat := c.Query("lat")

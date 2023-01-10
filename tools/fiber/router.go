@@ -2,6 +2,7 @@ package fiber
 
 import (
 	"fmt"
+	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"log"
@@ -31,12 +32,15 @@ func StartServer(port int) error {
 	// Cors
 	app.Use(cors.New())
 
-	app.Group("/api/v1")
+	// Swagger
+	app.Get("/swagger/*", swagger.HandlerDefault)
+
+	api := app.Group("/api/v1")
 
 	// Create routes
-	app.Get("/drivers/nearest", middleware.IsAuthenticated, handler.GetNearestDriver)
+	api.Get("/drivers/nearest", middleware.IsAuthenticated, handler.GetNearestDriver)
 	// Health check
-	app.Get("/health", func(c *fiber.Ctx) error {
+	api.Get("/health", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).SendString("OK")
 	})
 

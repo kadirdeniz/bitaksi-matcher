@@ -3,6 +3,7 @@ module matcher
 go 1.19
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gofiber/fiber/v2 v2.41.0
 	github.com/golang/mock v1.3.1
 	github.com/onsi/ginkgo/v2 v2.7.0

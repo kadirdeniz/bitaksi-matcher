@@ -1,12 +1,15 @@
 package internal
 
 import (
+	"encoding/json"
 	"fmt"
+	"matcher/pkg"
 	"net/http"
 )
 
+//go:generate mockgen -source=repository.go -destination=./../test/mock/mock_repository.go -package=mock
 type IRepository interface {
-	GetNearestDriver(port int, lat, long float64) (interface{}, error)
+	GetNearestDriver(port int, lat, long float64) (*Location, error)
 }
 
 type Repository struct {
@@ -20,7 +23,7 @@ func NewRepository() IRepository {
 }
 
 // Send a http request to get nearest driver
-func (r *Repository) GetNearestDriver(port int, lat, long float64) (interface{}, error) {
+func (r *Repository) GetNearestDriver(port int, lat, long float64) (*Location, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf(fmt.Sprintf("http://localhost:%d/api/v1/drivers/nearest?lat=%f&long=%f", port, lat, long)), nil)
 	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
@@ -32,8 +35,14 @@ func (r *Repository) GetNearestDriver(port int, lat, long float64) (interface{},
 		return nil, err
 	}
 
+	if resp.StatusCode == 404 {
+		return nil, pkg.ErrDriverNotFound
+	}
+	var location Location
+
+	json.NewDecoder(resp.Body).Decode(&location)
+
 	defer resp.Body.Close()
 
-	return resp, nil
-
+	return &location, nil
 }

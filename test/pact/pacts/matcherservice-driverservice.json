@@ -1,0 +1,59 @@
+{
+  "consumer": {
+    "name": "MatcherService"
+  },
+  "provider": {
+    "name": "DriverService"
+  },
+  "interactions": [
+    {
+      "description": "a request to find a nearest driver",
+      "providerState": "a driver exists",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/drivers/nearest",
+        "query": "lat=51.507351&long=-0.127758",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "distance": "0",
+          "lat": "51.507351",
+          "long": "-0.127758"
+        }
+      }
+    },
+    {
+      "description": "a request to find a nearest driver",
+      "providerState": "a driver does not exist",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/drivers/nearest",
+        "query": "lat=51.507351&long=-0.127758",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "error": "driver not found"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

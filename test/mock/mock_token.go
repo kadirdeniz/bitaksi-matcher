@@ -1,0 +1,4 @@
+package mock
+
+var AuthenticatedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoidHJ1ZSJ9.V7NhQn8kJSmDkxBAuB-iU8PXf_UQfR0eWmPzRF3Lgr0"
+var InvalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoiZmFsc2UifQ.lpGdy2woonDCuX7OSoXvzr0mNTLEwL3Hz3sGzE5CMpA"

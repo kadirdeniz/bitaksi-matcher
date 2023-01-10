@@ -3,6 +3,7 @@ package pact
 import (
 	"github.com/pact-foundation/pact-go/dsl"
 	"matcher/internal"
+	"matcher/pkg"
 	"testing"
 
 	. "github.com/onsi/ginkgo/v2"
@@ -86,7 +87,7 @@ var _ = Describe("Pact", func() {
 					_, err := repository.GetNearestDriver(pact.Server.Port, 51.507351, -0.127758)
 					return err
 				})
-				Expect(err).To(BeNil())
+				Expect(err).To(Equal(pkg.ErrDriverNotFound))
 			})
 		})
 	})

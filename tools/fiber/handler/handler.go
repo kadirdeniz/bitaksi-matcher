@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"matcher/internal"
 	"matcher/pkg"
+	"matcher/tools/zap"
 	"strconv"
 )
 
@@ -79,6 +80,9 @@ func (h *Handler) ErrorHandler(c *fiber.Ctx, err error) error {
 	if e, ok := err.(*fiber.Error); ok {
 		code = e.Code
 	}
+
+	// Log error for debugging
+	zap.Logger.Error(err.Error())
 
 	// Send error back
 	return c.Status(code).JSON(pkg.NewResponse(false, pkg.ErrInternalServer.Error(), nil))

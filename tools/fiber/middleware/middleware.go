@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"matcher/pkg"
 	"matcher/tools/jwt"
+	"matcher/tools/zap"
 	"strings"
 )
 
@@ -25,5 +26,10 @@ func IsAuthenticated(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).JSON(pkg.NewResponse(false, pkg.ErrUnauthorized.Error(), nil))
 	}
 
+	return c.Next()
+}
+
+func Logger(c *fiber.Ctx) error {
+	zap.Logger.Info(c.String())
 	return c.Next()
 }

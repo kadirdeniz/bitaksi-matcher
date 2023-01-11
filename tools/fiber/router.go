@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"matcher/tools/zap"
 
 	"log"
 	"matcher/internal"
@@ -22,6 +23,9 @@ func Router() {
 }
 
 func StartServer(port int) error {
+
+	// Initilize logger
+	zap.InitilizeLogger()
 
 	// Create repository
 	repository := internal.NewRepository()
@@ -44,7 +48,7 @@ func StartServer(port int) error {
 	// Recovery
 	app.Use(recover.New())
 
-	api := app.Group("/api/v1")
+	api := app.Group("/api/v1", middleware.Logger)
 
 	// Create routes
 	api.Get("/drivers/nearest", middleware.IsAuthenticated, handler.GetNearestDriver)

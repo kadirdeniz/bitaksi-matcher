@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/golang/mock/gomock"
 	"io"
 	"matcher/pkg"
@@ -180,6 +181,40 @@ var _ = Describe("Fiber", Ordered, func() {
 					Expect(responseObject.Data).To(BeNil())
 				})
 			})
+		})
+	})
+
+	Context("ErrorHandler", func() {
+		var responseObject pkg.Response
+
+		It("Should return an error", func() {
+			handler := NewHandler(mockRepository)
+			Expect(handler).NotTo(BeNil())
+
+			app := fiber.New(fiber.Config{
+				ErrorHandler: handler.ErrorHandler,
+			})
+			app.Use(recover.New())
+
+			app.Get("/api/v1/error", func(c *fiber.Ctx) error {
+				panic("error")
+			})
+
+			req := httptest.NewRequest("GET", "/api/v1/error", nil)
+
+			resp, err := app.Test(req)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(resp.StatusCode).To(Equal(500))
+
+			responseBody, err := io.ReadAll(resp.Body)
+			Expect(err).NotTo(HaveOccurred())
+
+			err = json.Unmarshal(responseBody, &responseObject)
+			Expect(err).To(BeNil())
+
+			Expect(responseObject.Success).To(BeFalse())
+			Expect(responseObject.Message).To(Equal(pkg.ErrInternalServer.Error()))
+			Expect(responseObject.Data).To(BeNil())
 		})
 	})
 })

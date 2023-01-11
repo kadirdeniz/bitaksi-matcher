@@ -11,6 +11,7 @@ const driverServicePort = 8080
 
 type IHandler interface {
 	GetNearestDriver(c *fiber.Ctx) error
+	ErrorHandler(c *fiber.Ctx, err error) error
 }
 
 type Handler struct {
@@ -68,4 +69,17 @@ func (h *Handler) GetNearestDriver(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(pkg.NewResponse(true, "Driver found", location))
+}
+
+func (h *Handler) ErrorHandler(c *fiber.Ctx, err error) error {
+	// Status code defaults to 500
+	code := fiber.StatusInternalServerError
+
+	// Retrieve the custom status code if it's an fiber.*Error
+	if e, ok := err.(*fiber.Error); ok {
+		code = e.Code
+	}
+
+	// Send error back
+	return c.Status(code).JSON(pkg.NewResponse(false, pkg.ErrInternalServer.Error(), nil))
 }

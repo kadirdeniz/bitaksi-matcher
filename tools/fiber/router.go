@@ -5,6 +5,8 @@ import (
 	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/recover"
+
 	"log"
 	"matcher/internal"
 	"matcher/tools/fiber/handler"
@@ -27,13 +29,20 @@ func StartServer(port int) error {
 	// Create handler
 	handler := handler.NewHandler(repository)
 
-	app := fiber.New()
+	app := fiber.New(
+		fiber.Config{
+			ErrorHandler: handler.ErrorHandler,
+		},
+	)
 
 	// Cors
 	app.Use(cors.New())
 
 	// Swagger
 	app.Get("/swagger/*", swagger.HandlerDefault)
+
+	// Recovery
+	app.Use(recover.New())
 
 	api := app.Group("/api/v1")
 

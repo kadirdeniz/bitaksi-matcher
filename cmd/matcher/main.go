@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"matcher/internal"
-
 	"matcher/tools/fiber/handler"
 	"matcher/tools/fiber/middleware"
 )

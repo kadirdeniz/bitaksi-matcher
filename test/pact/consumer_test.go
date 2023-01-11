@@ -53,7 +53,11 @@ var _ = Describe("Pact", func() {
 					WillRespondWith(dsl.Response{
 						Status:  200,
 						Headers: dsl.MapMatcher{"Content-Type": dsl.String("application/json")},
-						Body:    dsl.MapMatcher{"lat": dsl.String("51.507351"), "long": dsl.String("-0.127758"), "distance": dsl.String("0")},
+						Body: dsl.MapMatcher{
+							"driver_id":   dsl.String("132123123"),
+							"distance":    dsl.String("0"),
+							"coordinates": dsl.Like([]float64{51.507351, -0.127758}),
+						},
 					})
 
 				err := pact.Verify(func() error {

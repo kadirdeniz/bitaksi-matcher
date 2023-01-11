@@ -1,10 +1,11 @@
 package pact
 
 import (
-	"github.com/pact-foundation/pact-go/dsl"
 	"matcher/internal"
 	"matcher/pkg"
 	"testing"
+
+	"github.com/pact-foundation/pact-go/dsl"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -99,7 +100,7 @@ var _ = Describe("Pact", func() {
 			It("should return an error", func() {
 				pact.
 					AddInteraction().
-					Given("a driver exists").
+					Given("api key is invalid").
 					UponReceiving("a request to find a nearest driver").
 					WithRequest(dsl.Request{
 						Method:  "GET",

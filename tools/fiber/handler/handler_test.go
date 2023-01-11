@@ -50,7 +50,7 @@ var _ = Describe("Fiber", Ordered, func() {
 		When("Driver is found", func() {
 			It("Should return a driver", func() {
 
-				mockRepository.EXPECT().GetNearestDriver(gomock.Any(), gomock.Any(), gomock.Any()).Return(mockLocation, nil).Times(1)
+				mockRepository.EXPECT().GetNearestDriver(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(mockLocation, nil).Times(1)
 				handler := NewHandler(mockRepository)
 				Expect(handler).NotTo(BeNil())
 
@@ -78,7 +78,7 @@ var _ = Describe("Fiber", Ordered, func() {
 		When("Driver is not found", func() {
 			It("Should return an error", func() {
 
-				mockRepository.EXPECT().GetNearestDriver(gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, pkg.ErrDriverNotFound).Times(1)
+				mockRepository.EXPECT().GetNearestDriver(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, pkg.ErrDriverNotFound).Times(1)
 				handler := NewHandler(mockRepository)
 				Expect(handler).NotTo(BeNil())
 

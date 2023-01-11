@@ -35,16 +35,16 @@ func (m *MockIRepository) EXPECT() *MockIRepositoryMockRecorder {
 }
 
 // GetNearestDriver mocks base method.
-func (m *MockIRepository) GetNearestDriver(port int, lat, long float64) (*internal.Location, error) {
+func (m *MockIRepository) GetNearestDriver(port int, lat, long float64, api_key string) (*internal.Location, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNearestDriver", port, lat, long)
+	ret := m.ctrl.Call(m, "GetNearestDriver", port, lat, long, api_key)
 	ret0, _ := ret[0].(*internal.Location)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetNearestDriver indicates an expected call of GetNearestDriver.
-func (mr *MockIRepositoryMockRecorder) GetNearestDriver(port, lat, long interface{}) *gomock.Call {
+func (mr *MockIRepositoryMockRecorder) GetNearestDriver(port, lat, long, api_key interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNearestDriver", reflect.TypeOf((*MockIRepository)(nil).GetNearestDriver), port, lat, long)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNearestDriver", reflect.TypeOf((*MockIRepository)(nil).GetNearestDriver), port, lat, long, api_key)
 }

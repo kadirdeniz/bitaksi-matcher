@@ -9,6 +9,7 @@ import (
 )
 
 const driverServicePort = 8080
+const api_key = "1234567890"
 
 type IHandler interface {
 	GetNearestDriver(c *fiber.Ctx) error
@@ -62,7 +63,7 @@ func (h *Handler) GetNearestDriver(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(pkg.NewResponse(false, pkg.ErrInvalidRequest.Error(), nil))
 	}
 
-	location, err := h.Repository.GetNearestDriver(driverServicePort, floatLat, floatLong)
+	location, err := h.Repository.GetNearestDriver(driverServicePort, floatLat, floatLong, api_key)
 	if err != nil {
 		if err == pkg.ErrDriverNotFound {
 			return c.Status(fiber.StatusNotFound).JSON(pkg.NewResponse(false, pkg.ErrDriverNotFound.Error(), nil))

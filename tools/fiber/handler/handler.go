@@ -48,11 +48,13 @@ func (h *Handler) GetNearestDriver(c *fiber.Ctx) error {
 
 	floatLat, err := strconv.ParseFloat(lat, 64)
 	if err != nil {
+		zap.Logger.Error("Error parsing latitude: " + err.Error())
 		return c.Status(fiber.StatusBadRequest).JSON(pkg.NewResponse(false, pkg.ErrInvalidRequest.Error(), nil))
 	}
 
 	floatLong, err := strconv.ParseFloat(long, 64)
 	if err != nil {
+		zap.Logger.Error("Error parsing longitude: " + err.Error())
 		return c.Status(fiber.StatusBadRequest).JSON(pkg.NewResponse(false, pkg.ErrInvalidRequest.Error(), nil))
 	}
 
@@ -65,6 +67,8 @@ func (h *Handler) GetNearestDriver(c *fiber.Ctx) error {
 		if err == pkg.ErrDriverNotFound {
 			return c.Status(fiber.StatusNotFound).JSON(pkg.NewResponse(false, pkg.ErrDriverNotFound.Error(), nil))
 		}
+
+		zap.Logger.Error("Error getting nearest driver: " + err.Error())
 
 		return c.Status(fiber.StatusInternalServerError).JSON(pkg.NewResponse(false, pkg.ErrInternalServer.Error(), nil))
 	}

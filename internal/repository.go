@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"matcher/pkg"
+	"matcher/tools/zap"
 	"net/http"
 )
 
@@ -27,11 +28,13 @@ func (r *Repository) GetNearestDriver(port int, lat, long float64) (*Location, e
 	req, err := http.NewRequest("GET", fmt.Sprintf(fmt.Sprintf("http://localhost:%d/api/v1/drivers/nearest?lat=%f&long=%f", port, lat, long)), nil)
 	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
+		zap.Logger.Error("Error creating request: " + err.Error())
 		return nil, err
 	}
 
 	resp, err := r.Client.Do(req)
 	if err != nil {
+		zap.Logger.Error("Error sending request: " + err.Error())
 		return nil, err
 	}
 

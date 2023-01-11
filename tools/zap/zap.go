@@ -11,7 +11,7 @@ import (
 
 var Logger *zap.Logger
 
-func InitilizeLogger() {
+func init() {
 	zapConfig := zap.NewProductionConfig()
 
 	fileEncoder := zapcore.NewJSONEncoder(zapConfig.EncoderConfig)
@@ -28,7 +28,6 @@ func InitilizeLogger() {
 
 	core := zapcore.NewTee(
 		zapcore.NewCore(fileEncoder, writer, defaultLogLevel),
-		zapcore.NewCore(fileEncoder, zapcore.Lock(os.Stdout), defaultLogLevel),
 	)
 
 	Logger = zap.New(core, zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))

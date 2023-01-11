@@ -5,10 +5,10 @@ import (
 	swagger "github.com/arsmn/fiber-swagger/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"matcher/tools/zap"
 
-	"log"
 	"matcher/internal"
 	"matcher/tools/fiber/handler"
 	"matcher/tools/fiber/middleware"
@@ -17,15 +17,11 @@ import (
 func Router() {
 	err := StartServer(8000)
 	if err != nil {
-		log.Fatal(err)
+		zap.Logger.Fatal(err.Error())
 	}
-	log.Println("User service started")
 }
 
 func StartServer(port int) error {
-
-	// Initilize logger
-	zap.InitilizeLogger()
 
 	// Create repository
 	repository := internal.NewRepository()
@@ -52,10 +48,14 @@ func StartServer(port int) error {
 
 	// Create routes
 	api.Get("/drivers/nearest", middleware.IsAuthenticated, handler.GetNearestDriver)
+
 	// Health check
 	api.Get("/health", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).SendString("OK")
 	})
+
+	// Monitoring
+	api.Get("/metrics", monitor.New(monitor.Config{Title: "Matcher Service Metrics Page"}))
 
 	return app.Listen(fmt.Sprintf(":%d", port))
 }

@@ -55,9 +55,12 @@ var _ = Describe("Pact", func() {
 						Status:  200,
 						Headers: dsl.MapMatcher{"Content-Type": dsl.String("application/json")},
 						Body: dsl.MapMatcher{
-							"driver_id":   dsl.String("132123123"),
+							"id":   dsl.String("132123123"),
+							"location":  dsl.Like(map[string]dsl.Matcher{
+								"type":        dsl.String("Point"),
+								"coordinates": dsl.Like([]float64{51.507351, -0.127758}),
+							}),
 							"distance":    dsl.String("0"),
-							"coordinates": dsl.Like([]float64{51.507351, -0.127758}),
 						},
 					})
 

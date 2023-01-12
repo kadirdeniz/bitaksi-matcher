@@ -1,14 +1,15 @@
 package handler
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"matcher/internal"
 	"matcher/pkg"
 	"matcher/tools/zap"
 	"strconv"
+
+	"github.com/gofiber/fiber/v2"
 )
 
-const driverServicePort = 8080
+const driverServicePort = 8001
 const api_key = "1234567890"
 
 type IHandler interface {

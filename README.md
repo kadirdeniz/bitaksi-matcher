@@ -13,7 +13,7 @@ https://github.com/kadirdeniz/bitaksi-driver
 * [Test](#test)
 
 ## General info
-This service matches authecnticated users with nearest driver using `Driver Service`.JWT based authentication implemented, user should have `authenticated: true` JWT.In this project i tried to follow `Test Driven Development`. `TDD` is a software development approach which test should write before code,then refactoring should be done. I implemented `pactflow` contract test, integration and unit tests and i used `Ginkgo` for clear understanding test cases. I created detailed `postman` collection in the `/docs` folder.
+This service matches authenticated users with nearest driver using `Driver Service`.In this application JWT based authentication implemented, user should have `authenticated: true` JWT.I tried to follow `Test Driven Development`. `TDD` is a software development approach which test should write before code,then refactoring should be done. I implemented `pactflow` contract test, integration and unit tests and i used `Ginkgo` for clear understanding of test cases. There is a `postman` collection under the `/docs` folder, it can be used for testing.
 
 ## Clone the project
 ```

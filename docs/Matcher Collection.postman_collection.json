@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "25e84c48-4fb2-46f1-b2fe-2063283c3e42",
+		"name": "Matcher Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24768648"
+	},
+	"item": [
+		{
+			"name": "Find Nearest Driver",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoidHJ1ZSJ9.V7NhQn8kJSmDkxBAuB-iU8PXf_UQfR0eWmPzRF3Lgr0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/drivers/nearest?long=29.0390297&lat=39.94289771",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"drivers",
+						"nearest"
+					],
+					"query": [
+						{
+							"key": "long",
+							"value": "29.0390297"
+						},
+						{
+							"key": "lat",
+							"value": "39.94289771"
+						},
+						{
+							"key": "Bearer",
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoidHJ1ZSJ9.V7NhQn8kJSmDkxBAuB-iU8PXf_UQfR0eWmPzRF3Lgr0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Find Nearest Driver",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoidHJ1ZSJ9.V7NhQn8kJSmDkxBAuB-iU8PXf_UQfR0eWmPzRF3Lgr0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/drivers/nearest?long=29.0390297&lat=39.94289771",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"nearest"
+							],
+							"query": [
+								{
+									"key": "long",
+									"value": "29.0390297"
+								},
+								{
+									"key": "lat",
+									"value": "39.94289771"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 12 Jan 2023 20:55:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Driver found\",\n    \"data\": {\n        \"id\": \"63c072c38929643606a9d4f0\",\n        \"distance\": 0,\n        \"coordinates\": [\n            29.01159184,\n            40.18158791\n        ]\n    }\n}"
+				},
+				{
+					"name": "Find Nearest Driver When No Driver in Near",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoidHJ1ZSJ9.V7NhQn8kJSmDkxBAuB-iU8PXf_UQfR0eWmPzRF3Lgr0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/drivers/nearest?long=29.0390297&lat=00.94289771",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"nearest"
+							],
+							"query": [
+								{
+									"key": "long",
+									"value": "29.0390297"
+								},
+								{
+									"key": "lat",
+									"value": "00.94289771"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 12 Jan 2023 20:55:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"message\": \"driver not found\",\n    \"data\": null\n}"
+				},
+				{
+					"name": "Find Nearest Driver When Token Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkIjoiZmFsc2UifQ.lpGdy2woonDCuX7OSoXvzr0mNTLEwL3Hz3sGzE5CMpA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/drivers/nearest?long=29.0390297&lat=00.94289771",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"drivers",
+								"nearest"
+							],
+							"query": [
+								{
+									"key": "long",
+									"value": "29.0390297"
+								},
+								{
+									"key": "lat",
+									"value": "00.94289771"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 12 Jan 2023 20:57:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"message\": \"Unauthorized\",\n    \"data\": null\n}"
+				}
+			]
+		}
+	]
+}
